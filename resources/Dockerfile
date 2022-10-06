@@ -15,7 +15,7 @@ RUN pacman-key --init && \
     pacman --noconfirm -S archlinux-keyring
 
 #Install basic packages
-RUN pacman --noconfirm -S curl git
+RUN pacman --noconfirm -S curl git go vim
 
 #Add current user to environment 
 RUN /bin/bash -c 'useradd -m -s /bin/bash -g root ${USER}; echo "${USER}:${PASSWD}" | chpasswd'
@@ -27,9 +27,13 @@ RUN /bin/bash -c 'echo "default=${USER}" >> /etc/wsl.conf; \
 
 #Set default user
 USER $USER
- 
+
 #Setup asdf
 RUN git clone https://github.com/asdf-vm/asdf.git /home/${USER}/.asdf --branch v0.10.2 && \
-  echo ". $HOME/.asdf/asdf.sh" >> /home/${USER}/.bashrc && \
-  echo ". $HOME/.asdf/completions/asdf.bash" >> /home/${USER}/.bashrc
+  echo ". /home/${USER}/.asdf/asdf.sh" >> /home/${USER}/.bashrc && \
+  echo ". /home/${USER}/.asdf/completions/asdf.bash" >> /home/${USER}/.bashrc
 
+#Setup yay
+RUN git clone https://aur.archlinux.org/yay.git /tmp/yay && \
+  cd /tmp/yay && \
+  makepkg --noconfirm -si
