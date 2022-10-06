@@ -9,7 +9,7 @@ echo INVALID PASSWORD, CAN'T BE BLANK
 goto setpasswd
 :installation
 rem [32m Building Docker container and importing to WSL [0m
-docker build --build-arg USER=%USERNAME% --build-arg PASSWD=%Input% -t workspace -f resources\Dockerfile .
+docker build --no-cache --build-arg USER=%USERNAME% --build-arg PASSWD=%Input% -t workspace -f resources\Dockerfile .
 docker run --name workspace workspace
 docker export --output="workspace.tar.gz" workspace
 docker container rm workspace
