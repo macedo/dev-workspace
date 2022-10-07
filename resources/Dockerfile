@@ -38,6 +38,9 @@ USER $USER
 
 SHELL [ "fish", "--command" ]
 
+#Install rust
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+
 RUN /bin/bash -c 'echo "starship init fish | source" >> /home/${USER}/.config/fish/config.fish'
 
 #Setup yay
