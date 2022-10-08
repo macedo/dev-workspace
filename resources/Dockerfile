@@ -33,6 +33,9 @@ RUN pacman --noconfirm -S \
   unzip \
   vim
 
+#Install web_search
+RUN curl -L https://github.com/macedo/web_search/releases/download/v0.1.0/web_search_0.1.0_Linux_x86_64.tar.gz | tar -xz -C /usr/local/bin web_search
+
 #Add current user to environment 
 RUN useradd -m --shell /usr/bin/fish -g root ${USER} && \
   echo "${USER}:${PASSWD}" | chpasswd
